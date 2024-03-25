@@ -3,9 +3,13 @@ package com.macpaul.blogging_platform_with_weather_int.service;
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
+import com.macpaul.blogging_platform_with_weather_int.dto.weather.WeatherDto;
 import com.macpaul.blogging_platform_with_weather_int.mapper.PostMapper;
+import com.macpaul.blogging_platform_with_weather_int.mapper.WeatherMapper;
 import com.macpaul.blogging_platform_with_weather_int.model.Post;
 import com.macpaul.blogging_platform_with_weather_int.model.WeatherCondition;
+import com.macpaul.blogging_platform_with_weather_int.repository.PostRepository;
+import com.macpaul.blogging_platform_with_weather_int.repository.WeatherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +19,22 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostMapper postMapper;
+    private final WeatherMapper weatherMapper;
+    private final WeatherService weatherService;
+    private final PostRepository postRepository;
+    private final WeatherRepository weatherRepository;
+
     @Override
     public PostResponseDto save(PostDto postDto) {
-        Post post = postMapper.toPost(postDto);
+        Post post = postRepository.save(postMapper.toPost(postDto));
         Double lat = postDto.latitude()==null?6.5244:postDto.latitude();
-        Double lon = postDto.longitude()==null?3.3792: postDto.longitude();
-
-        WeatherCondition weather = new WeatherCondition();
-
-        return null;
+        Double lon = postDto.longitude()==null?3.3792:postDto.longitude();
+        WeatherDto weatherDto = weatherService.getWeatherFromApi(lat,lon);
+        WeatherCondition weather = weatherMapper.toWeatherCondition(weatherDto);
+        weather.setPost(post);
+        WeatherCondition weather2=weatherRepository.save(weather);
+        post.setWeatherCondition(weather2);
+        return postMapper.toPostResponseDto(post);
     }
 
     @Override

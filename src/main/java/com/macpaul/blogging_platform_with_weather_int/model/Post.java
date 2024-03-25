@@ -1,7 +1,7 @@
 package com.macpaul.blogging_platform_with_weather_int.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -17,10 +17,16 @@ public class Post extends AuditBaseEntity {
     private String content;
     @Column(nullable = false)
     private String author;
-    @Column(nullable = false)
-    private Float temperature;
-    @Column(nullable = false)
-    private String weatherCondition;
+
+    @OneToOne(mappedBy = "post",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false)
+    @JsonManagedReference
+    private WeatherCondition weatherCondition;
+
+
+
 
 
 }

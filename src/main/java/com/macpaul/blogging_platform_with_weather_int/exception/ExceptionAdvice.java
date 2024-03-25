@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,5 +24,16 @@ public class ExceptionAdvice {
                 });
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public HashMap<String, String> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex){
+        HashMap<String, String> errors= new HashMap<>();
+        errors.put("msg","Error processing input");
+        errors.put("error",ex.getMessage());
+        errors.put("value_provided",(String)ex.getValue());
+        errors.put("field",ex.getName());
+        return errors;
     }
 }

@@ -1,17 +1,26 @@
 package com.macpaul.blogging_platform_with_weather_int.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.*;
 
-@Entity
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@Entity
 public class WeatherCondition extends BaseEntity{
-    private String temperature;
+    private Double temperature;
     private String weatherCondition;
+    private Integer timeZone;
+    private String name;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", unique = true)
+    @JsonBackReference
+    private Post post;
 }
