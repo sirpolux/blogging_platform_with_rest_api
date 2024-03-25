@@ -3,16 +3,23 @@ package com.macpaul.blogging_platform_with_weather_int.controller;
 import com.macpaul.blogging_platform_with_weather_int.dto.PostDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.PostResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
+import com.macpaul.blogging_platform_with_weather_int.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/post")
+@RequiredArgsConstructor
 public class PostController {
+
+    private final PostService postService;
     @PostMapping
-    public PostResponseDto save(@RequestBody PostDto blogDto){
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public PostResponseDto save(@RequestBody PostDto postDto){
+        return postService.save(postDto);
     }
     @GetMapping
     public List<PostResponseDto> getAllPost(@RequestParam Integer pageSize, @RequestParam Integer pageNo){

@@ -4,7 +4,7 @@ public record PostDto(
     String title,
     String content,
     String author,
-    float longitude,
-    float latitude
+    Double longitude,
+    Double latitude
 ) {
 }
