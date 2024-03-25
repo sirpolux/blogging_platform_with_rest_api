@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public record PostDto(
+        Integer id,
         @NotEmpty(message="No Title: Please provide a title")
         @Size(min = 5, message = "Title too short: Must have up to 5 characters")
         @Size(max =100, message = "Title too long: Must have 100 or less characters")

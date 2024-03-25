@@ -11,6 +11,6 @@ public interface PostService {
     List<PostResponseDto> getAllPost(Integer pageSize, Integer pageNo);
     PostResponseDto getPost(Integer postId);
     PostResponseDto update(PostDto postDto);
-    ResponseDto delete(Integer postId);
+    void delete(Integer postId);
 
 }

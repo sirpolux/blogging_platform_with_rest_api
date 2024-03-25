@@ -25,7 +25,13 @@ public class ExceptionAdvice {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
+    public HashMap<String, String> handleIllegalArgumentException(IllegalArgumentException ex){
+        HashMap<String, String> errors= new HashMap<>();
+        errors.put("msg","Error getting weather data");
+        return errors;
+    }
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public HashMap<String, String> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex){
@@ -36,4 +42,5 @@ public class ExceptionAdvice {
         errors.put("field",ex.getName());
         return errors;
     }
+
 }

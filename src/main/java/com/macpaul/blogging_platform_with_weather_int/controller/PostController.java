@@ -23,21 +23,25 @@ public class PostController {
         return postService.save(postDto);
     }
     @GetMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
     public PostResponseDto getPost(@PathVariable Integer postId){
         return postService.getPost(postId);
     }
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<PostResponseDto> getAllPost(@RequestParam Integer pageSize, @RequestParam Integer pageNo){
         return null;
     }
 
     @PutMapping
+    @ResponseStatus(HttpStatus.OK)
     public PostResponseDto updatePost(@RequestBody PostDto postDto){
         return null;
     }
     @DeleteMapping
-    public ResponseDto deletePost(@PathVariable Integer postId){
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  deletePost(@PathVariable Integer postId){
+
     }
 
 

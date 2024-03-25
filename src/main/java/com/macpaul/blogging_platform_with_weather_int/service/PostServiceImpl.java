@@ -4,6 +4,8 @@ import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.weather.WeatherDto;
+import com.macpaul.blogging_platform_with_weather_int.exception.InvalidPostArgumentException;
+import com.macpaul.blogging_platform_with_weather_int.exception.PostNotFoundException;
 import com.macpaul.blogging_platform_with_weather_int.mapper.PostMapper;
 import com.macpaul.blogging_platform_with_weather_int.mapper.WeatherMapper;
 import com.macpaul.blogging_platform_with_weather_int.model.Post;
@@ -29,10 +31,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseDto save(PostDto postDto) {
         Post post = postRepository.save(postMapper.toPost(postDto));
-        Double lat = postDto.latitude()==null?6.5244:postDto.latitude();
-        Double lon = postDto.longitude()==null?3.3792:postDto.longitude();
-        WeatherDto weatherDto = weatherService.getWeatherFromApi(lat,lon);
-        WeatherCondition weather = weatherMapper.toWeatherCondition(weatherDto);
+        WeatherCondition weather = weatherService.getWeatherFromApi(postDto);
         weather.setPost(post);
         WeatherCondition weather2=weatherRepository.save(weather);
         post.setWeatherCondition(weather2);
@@ -41,21 +40,38 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseDto getPost(Integer postId) {
         Optional<Post> post = postRepository.findById(postId);
-        System.out.println(post.get());
-        return null;
+        return post.map(postMapper::toPostResponseDto).orElse(null);
     }
     @Override
     public List<PostResponseDto> getAllPost(Integer pageSize, Integer pageNo) {
-        return null;
+
     }
 
     @Override
     public PostResponseDto update(PostDto postDto) {
-        return null;
+        if (postDto.id()==null){
+            throw new InvalidPostArgumentException("Error: Post Id must be provided to perform an update");
+        }
+        Optional<Post> post = postRepository.findById(postDto.id());
+        if (post.isEmpty()){
+            throw new PostNotFoundException("Error: Target post not found, failed performing update");
+        }
+        Post postData = postMapper.toPost(postDto);
+        postData.setId(postDto.id());
+        Post postData2 = postRepository.save(postData);
+        WeatherCondition weather = weatherService.getWeatherFromApi(postDto);
+        weather.setPost(postData);
+        WeatherCondition weather2=weatherRepository.save(weather);
+        postData.setWeatherCondition(weather2);
+        return postMapper.toPostResponseDto(postData2);
     }
 
     @Override
-    public ResponseDto delete(Integer postId) {
-        return null;
+    public void delete(Integer postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isEmpty()){
+            throw new PostNotFoundException("Error: Target post not found or is already deleted");
+        }
+        postRepository.delete(post.get());
     }
 }

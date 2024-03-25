@@ -19,19 +19,18 @@ public class WeatherCondition extends BaseEntity{
     private String weatherCondition;
     private Integer timeZone;
     private String name;
+    private String location;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", unique = true)
     @JsonBackReference
     private Post post;
 
     @Override
-    public String ddtoString() {
+    public String toString() {
         return "WeatherCondition{" +
                 "temperature=" + temperature +
                 ", weatherCondition='" + weatherCondition + '\'' +
                 ", timeZone=" + timeZone +
-                ", name='" + name + '\'' +
-                ", post=" + post +
                 '}';
     }
 }

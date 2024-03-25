@@ -13,6 +13,7 @@ public class WeatherMapper {
                 .weatherCondition(weatherDto.getWeather().get(0).getDescription())
                 .name(weatherDto.getName())
                 .timeZone(weatherDto.getTimezone())
+                .location(weatherDto.getName())
                 .build();
     }
 }
