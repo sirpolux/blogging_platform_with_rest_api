@@ -12,7 +12,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

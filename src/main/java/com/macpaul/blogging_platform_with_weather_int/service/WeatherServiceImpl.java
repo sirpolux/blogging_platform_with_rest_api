@@ -2,8 +2,10 @@ package com.macpaul.blogging_platform_with_weather_int.service;
 
 import com.macpaul.blogging_platform_with_weather_int.dto.weather.WeatherDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@Service
 public class WeatherServiceImpl implements WeatherService {
 
     @Value("${weather.api.key}")
