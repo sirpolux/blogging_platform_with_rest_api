@@ -16,7 +16,7 @@ public class PostMapper {
     }
     public PostResponseDto toPostResponseDto(Post post){
         return new PostResponseDto(post.getId(), post.getTitle(),
-                post.getContent(), post.getContent(), post.getWeatherCondition().getTemperature(),
+                post.getContent(), post.getAuthor(), post.getWeatherCondition().getTemperature(),
                 post.getWeatherCondition().getWeatherCondition(), post.getWeatherCondition().getName(),
                 post.getWeatherCondition().getTimeZone());
     }

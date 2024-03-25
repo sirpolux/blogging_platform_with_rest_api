@@ -2,6 +2,7 @@ package com.macpaul.blogging_platform_with_weather_int.service;
 
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.weather.WeatherDto;
+import com.macpaul.blogging_platform_with_weather_int.exception.NullWeatherDataException;
 import com.macpaul.blogging_platform_with_weather_int.mapper.WeatherMapper;
 import com.macpaul.blogging_platform_with_weather_int.model.WeatherCondition;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class WeatherServiceImpl implements WeatherService {
         RestTemplate restTemplate =new RestTemplate();
         WeatherDto weather =restTemplate.getForObject(apiUrl, WeatherDto.class);
         if (weather == null) {
-            throw new IllegalArgumentException("Weather object is null");
+            throw new NullWeatherDataException("Weather object is null");
         }
         return weatherMapper.toWeatherCondition(weather);
 
