@@ -22,9 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-
     private final PostMapper postMapper;
-    private final WeatherMapper weatherMapper;
     private final WeatherService weatherService;
     private final PostRepository postRepository;
     private final WeatherRepository weatherRepository;
