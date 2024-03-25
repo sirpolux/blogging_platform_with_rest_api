@@ -1,7 +1,7 @@
 package com.macpaul.blogging_platform_with_weather_int.controller;
 
-import com.macpaul.blogging_platform_with_weather_int.dto.PostDto;
-import com.macpaul.blogging_platform_with_weather_int.dto.PostResponseDto;
+import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
+import com.macpaul.blogging_platform_with_weather_int.dto.post.PostResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.service.PostService;
 import lombok.RequiredArgsConstructor;

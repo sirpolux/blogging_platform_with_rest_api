@@ -1,4 +1,4 @@
-package com.macpaul.blogging_platform_with_weather_int.dto;
+package com.macpaul.blogging_platform_with_weather_int.dto.post;
 
 public record PostDto(
     String title,

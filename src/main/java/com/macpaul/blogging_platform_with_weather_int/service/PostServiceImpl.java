@@ -1,11 +1,11 @@
 package com.macpaul.blogging_platform_with_weather_int.service;
 
-import com.macpaul.blogging_platform_with_weather_int.dto.PostDto;
-import com.macpaul.blogging_platform_with_weather_int.dto.PostResponseDto;
+import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
+import com.macpaul.blogging_platform_with_weather_int.dto.post.PostResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.mapper.PostMapper;
 import com.macpaul.blogging_platform_with_weather_int.model.Post;
-import com.macpaul.blogging_platform_with_weather_int.model.Weather;
+import com.macpaul.blogging_platform_with_weather_int.model.WeatherCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostService {
         Double lat = postDto.latitude()==null?6.5244:postDto.latitude();
         Double lon = postDto.longitude()==null?3.3792: postDto.longitude();
 
-        Weather weather = new Weather();
+        WeatherCondition weather = new WeatherCondition();
 
         return null;
     }
