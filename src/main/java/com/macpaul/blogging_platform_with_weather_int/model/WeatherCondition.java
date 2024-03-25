@@ -23,4 +23,15 @@ public class WeatherCondition extends BaseEntity{
     @JoinColumn(name = "post_id", unique = true)
     @JsonBackReference
     private Post post;
+
+    @Override
+    public String ddtoString() {
+        return "WeatherCondition{" +
+                "temperature=" + temperature +
+                ", weatherCondition='" + weatherCondition + '\'' +
+                ", timeZone=" + timeZone +
+                ", name='" + name + '\'' +
+                ", post=" + post +
+                '}';
+    }
 }

@@ -1,11 +1,9 @@
 package com.macpaul.blogging_platform_with_weather_int.controller;
 
+import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostDto;
 import com.macpaul.blogging_platform_with_weather_int.dto.post.PostResponseDto;
-import com.macpaul.blogging_platform_with_weather_int.dto.ResponseDto;
-import com.macpaul.blogging_platform_with_weather_int.dto.weather.WeatherDto;
 import com.macpaul.blogging_platform_with_weather_int.service.PostService;
-import com.macpaul.blogging_platform_with_weather_int.service.WeatherService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final WeatherService weatherService;
-
     private final PostService postService;
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
@@ -28,7 +24,7 @@ public class PostController {
     }
     @GetMapping("/{postId}")
     public PostResponseDto getPost(@PathVariable Integer postId){
-        return null;
+        return postService.getPost(postId);
     }
     @GetMapping
     public List<PostResponseDto> getAllPost(@RequestParam Integer pageSize, @RequestParam Integer pageNo){
@@ -44,10 +40,6 @@ public class PostController {
         return null;
     }
 
-//    @GetMapping("/test")
-//    public WeatherDto test(){
-//
-//        return weatherService.getWeather(6.5244,3.3792);
-//    }
+
 
 }

@@ -25,8 +25,13 @@ public class Post extends AuditBaseEntity {
     @JsonManagedReference
     private WeatherCondition weatherCondition;
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", weatherCondition=" + weatherCondition +
+                '}';
+    }
 }

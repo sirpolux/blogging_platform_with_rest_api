@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -36,14 +38,14 @@ public class PostServiceImpl implements PostService {
         post.setWeatherCondition(weather2);
         return postMapper.toPostResponseDto(post);
     }
-
-    @Override
-    public List<PostResponseDto> getAllPost(Integer pageSize, Integer pageNo) {
-        return null;
-    }
-
     @Override
     public PostResponseDto getPost(Integer postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        System.out.println(post.get());
+        return null;
+    }
+    @Override
+    public List<PostResponseDto> getAllPost(Integer pageSize, Integer pageNo) {
         return null;
     }
 
