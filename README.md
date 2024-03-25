@@ -16,7 +16,8 @@ The database schema includes two tables:
 - title
 - content
 - author
-- creation_date
+- created_at
+- update_at
 
 
 #### WeatherCondition:
